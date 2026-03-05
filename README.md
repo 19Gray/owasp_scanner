@@ -18,7 +18,7 @@
 **A fast, zero-dependency static analysis tool written in Rust**
 **that scans your codebase for OWASP Top 10 vulnerabilities**
 
-[![CI](https://github.com/19Gray/RustSecScan/actions/workflows/ci.yml/badge.svg)](https://github.com/19Gray/RustSecScan/actions)
+[![CI](https://github.com/19Gray/oxidize/actions/workflows/ci.yml/badge.svg)](https://github.com/19Gray/oxidize/actions)
 [![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![OWASP Top 10](https://img.shields.io/badge/OWASP-Top%2010-red.svg)](https://owasp.org/Top10/)
@@ -49,13 +49,13 @@
 
 ## Overview
 
-**RustSecScan** is a static analysis CLI tool built in Rust that detects security vulnerabilities in source code and configuration files — before they reach production.
+**oxidize** is a static analysis CLI tool built in Rust that detects security vulnerabilities in source code and configuration files — before they reach production.
 
 It scans your entire codebase in seconds with no external services, no API keys, and no cloud uploads. Every analysis runs entirely on your machine.
 
-### Why RustSecScan?
+### Why oxidize?
 
-Most security tools are slow, expensive, or cloud-dependent. RustSecScan is:
+Most security tools are slow, expensive, or cloud-dependent. oxidize is:
 
 - **Fast** — compiled Rust with parallel file walking; scans thousands of files in under a second
 - **Offline** — zero network calls, runs in air-gapped environments
@@ -81,7 +81,7 @@ Most security tools are slow, expensive, or cloud-dependent. RustSecScan is:
 This project is a **Cargo workspace** with three crates, each with a single responsibility:
 
 ```
-RustSecScan/
+oxidize/
 ├── Cargo.toml                        ← Workspace root (shared dependencies)
 ├── Cargo.lock                        ← Lock file (commit this!)
 ├── .github/
@@ -161,8 +161,8 @@ rustc --version   # should print 1.75.0 or higher
 
 ```bash
 # Clone the repository
-git clone https://github.com/19Gray/RustSecScan.git
-cd RustSecScan
+git clone https://github.com/19Gray/oxidize.git
+cd oxidize
 
 # Build the release binary
 cargo build --release -p scanner-cli
@@ -355,7 +355,7 @@ SARIF 2.1.0 format, compatible with GitHub Advanced Security, VS Code SARIF View
   "runs": [{
     "tool": {
       "driver": {
-        "name": "RustSecScan",
+        "name": "oxidize",
         "version": "1.0.0",
         "rules": [ ... ]
       }
