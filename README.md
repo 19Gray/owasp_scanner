@@ -49,13 +49,13 @@
 
 ## Overview
 
-**OWASP Scanner** is a static analysis CLI tool built in Rust that detects security vulnerabilities in source code and configuration files — before they reach production.
+**RustSecScan** is a static analysis CLI tool built in Rust that detects security vulnerabilities in source code and configuration files — before they reach production.
 
 It scans your entire codebase in seconds with no external services, no API keys, and no cloud uploads. Every analysis runs entirely on your machine.
 
-### Why OWASP Scanner?
+### Why RustSecScan?
 
-Most security tools are slow, expensive, or cloud-dependent. OWASP Scanner is:
+Most security tools are slow, expensive, or cloud-dependent. RustSecScan is:
 
 - **Fast** — compiled Rust with parallel file walking; scans thousands of files in under a second
 - **Offline** — zero network calls, runs in air-gapped environments
