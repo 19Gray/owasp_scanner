@@ -168,11 +168,11 @@ cd oxidize
 cargo build --release -p scanner-cli
 
 # The binary is now at:
-./target/release/owasp-scan --help
+./target/release/oxidize --help
 
 # Optionally install it globally
 cargo install --path crates/scanner-cli
-owasp-scan --help
+oxidize --help
 ```
 
 ### Setting Up from the Zip
@@ -195,7 +195,7 @@ cargo check --workspace
 cargo build --release
 
 # 5. Run it
-./target/release/owasp-scan . --format console
+./target/release/oxidize . --format console
 ```
 
 ---
@@ -206,56 +206,56 @@ cargo build --release
 
 ```bash
 # Scan a single file
-owasp-scan path/to/main.rs
+oxidize path/to/main.rs
 
 # Scan an entire project directory
-owasp-scan ./my_project
+oxidize ./my_project
 
 # Scan the current directory
-owasp-scan .
+oxidize .
 ```
 
 ### Output Formats
 
 ```bash
 # Colored terminal output (default)
-owasp-scan . --format console
+oxidize . --format console
 
 # JSON report saved to file
-owasp-scan . --format json --out report.json
+oxidize . --format json --out report.json
 
 # SARIF 2.1.0 (for GitHub Code Scanning / Security tab)
-owasp-scan . --format sarif --out results.sarif
+oxidize . --format sarif --out results.sarif
 
 # Self-contained HTML dashboard
-owasp-scan . --format html --out report.html
+oxidize . --format html --out report.html
 ```
 
 ### Filtering by Severity
 
 ```bash
 # Only show HIGH and CRITICAL (recommended for CI gate)
-owasp-scan . --min-severity high
+oxidize . --min-severity high
 
 # Only show CRITICAL
-owasp-scan . --min-severity critical
+oxidize . --min-severity critical
 
 # Show everything including INFO hints
-owasp-scan . --min-severity info
+oxidize . --min-severity info
 ```
 
 ### Scan Without Failing the Pipeline
 
 ```bash
 # Always exit 0 — useful for reporting without blocking
-owasp-scan . --no-fail --format json --out report.json
+oxidize . --no-fail --format json --out report.json
 ```
 
 ### Full CLI Reference
 
 ```
 USAGE:
-    owasp-scan [OPTIONS] <TARGET>
+    oxidize [OPTIONS] <TARGET>
 
 ARGUMENTS:
     <TARGET>    File or directory to scan
@@ -385,7 +385,7 @@ The HTML report is a fully self-contained single-file dashboard with:
 - No external dependencies — works fully offline, shareable as a single file
 
 ```bash
-owasp-scan . --format html --out report.html
+oxidize . --format html --out report.html
 open report.html   # macOS
 xdg-open report.html   # Linux
 start report.html   # Windows
@@ -409,7 +409,7 @@ The included workflow at `.github/workflows/ci.yml` does three things automatica
 # Key security scan step (from ci.yml)
 - name: Run OWASP scan to SARIF
   run: |
-    ./target/release/owasp-scan . \
+    ./target/release/oxidize . \
       --format sarif \
       --out results.sarif \
       --min-severity medium \
@@ -421,7 +421,7 @@ The included workflow at `.github/workflows/ci.yml` does three things automatica
     sarif_file: results.sarif
 
 - name: Fail build on HIGH+ findings
-  run: ./target/release/owasp-scan . --min-severity high
+  run: ./target/release/oxidize . --min-severity high
 ```
 
 After the SARIF upload, findings appear under **Security → Code scanning alerts** in your repository.
@@ -429,13 +429,13 @@ After the SARIF upload, findings appear under **Security → Code scanning alert
 ### GitLab CI
 
 ```yaml
-owasp-scan:
+oxidize:
   image: rust:latest
   stage: security
   script:
     - cargo build --release -p scanner-cli
-    - ./target/release/owasp-scan . --format sarif --out gl-sast-report.sarif --no-fail
-    - ./target/release/owasp-scan . --min-severity high
+    - ./target/release/oxidize . --format sarif --out gl-sast-report.sarif --no-fail
+    - ./target/release/oxidize . --min-severity high
   artifacts:
     reports:
       sast: gl-sast-report.sarif
@@ -452,7 +452,7 @@ Block commits that introduce HIGH or CRITICAL vulnerabilities:
 # Create the hook file
 cat > .git/hooks/pre-commit << 'EOF'
 #!/bin/sh
-owasp-scan . --min-severity high --no-color
+oxidize . --min-severity high --no-color
 if [ $? -ne 0 ]; then
   echo ""
   echo "OWASP scan found HIGH or CRITICAL issues. Fix them before committing."
@@ -612,7 +612,7 @@ cargo clippy --all-targets --all-features -- -D warnings
 
 # Build and self-scan
 cargo build --release -p scanner-cli
-./target/release/owasp-scan . --min-severity medium
+./target/release/oxidize . --min-severity medium
 ```
 
 ### Reporting Issues
