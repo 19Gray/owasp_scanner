@@ -1,0 +1,17 @@
+[package]
+name        = "scanner-cli"
+description = "OWASP scanner CLI binary"
+version.workspace    = true
+edition.workspace    = true
+license.workspace    = true
+repository.workspace = true
+
+[[bin]]
+name = "owasp-scan"
+path = "src/main.rs"
+
+[dependencies]
+scanner-core   = { path = "../scanner-core" }
+scanner-report = { path = "../scanner-report" }
+clap           = { workspace = true }
+anyhow         = { workspace = true }

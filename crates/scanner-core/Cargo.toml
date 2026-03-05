@@ -1,0 +1,17 @@
+[package]
+name        = "scanner-core"
+description = "OWASP A01-A04 detection engine"
+version.workspace    = true
+edition.workspace    = true
+license.workspace    = true
+repository.workspace = true
+
+[dependencies]
+serde      = { workspace = true }
+serde_json = { workspace = true }
+regex      = { workspace = true }
+thiserror  = { workspace = true }
+walkdir    = { workspace = true }
+chrono     = { workspace = true }
+anyhow     = { workspace = true }
+once_cell  = { workspace = true }
