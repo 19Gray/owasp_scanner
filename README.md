@@ -182,10 +182,10 @@ If you received this as a zip or are migrating from a `cargo new` single-crate p
 ```bash
 # 1. Unzip into your project root
 unzip owasp_workspace.zip
-cp -r owasp_workspace/* ./OWASP_SCANNER/
+cp -r owasp_workspace/* ./oxidize/
 
 # 2. Remove the old single-crate src/ folder
-cd OWASP_SCANNER
+cd oxidize
 rm -rf src/
 
 # 3. Verify the workspace compiles
