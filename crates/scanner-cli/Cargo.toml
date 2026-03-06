@@ -1,5 +1,5 @@
 [package]
-name        = "scanner-cli"
+name        = "purioniX"
 description = "OWASP scanner CLI binary"
 version.workspace    = true
 edition.workspace    = true
