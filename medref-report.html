@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>OWASP Scan Report</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#f0f2f5;color:#222}
+header{background:#1a1a2e;color:#fff;padding:24px 32px}
+header h1{font-size:1.6rem;margin-bottom:4px}
+header p{opacity:.7;font-size:.9rem}
+.summary{display:flex;gap:16px;padding:20px 32px;flex-wrap:wrap}
+.card{background:#fff;border-radius:8px;padding:16px 24px;min-width:120px;
+       box-shadow:0 1px 4px rgba(0,0,0,.1);text-align:center}
+.card .num{font-size:2rem;font-weight:700}
+.card .lbl{font-size:.75rem;opacity:.6;text-transform:uppercase}
+.critical{color:#e74c3c}.high{color:#e67e22}.medium{color:#d4ac0d}
+.low{color:#3498db}.info{color:#95a5a6}.total{color:#1a1a2e}
+.container{padding:0 32px 40px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;
+       overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);font-size:.85rem}
+th{background:#1a1a2e;color:#fff;padding:10px 12px;text-align:left}
+td{padding:10px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;color:#fff;
+        font-size:.75rem;font-weight:600}
+code{font-size:.8rem;background:#f4f4f4;padding:2px 5px;border-radius:4px}
+.snippet{word-break:break-all}
+.rec{font-size:.8rem;color:#27ae60}
+.clean{text-align:center;padding:48px;font-size:1.2rem;color:#27ae60}
+</style>
+</head>
+<body>
+<header>
+  <h1>OWASP Vulnerability Scan Report</h1>
+  <p>Target: /home/gray/projects/medref | Scanned: 2026-08-01T06:33:20.612802438+00:00</p>
+</header>
+<div class="summary">
+  <div class="card"><div class="num total">24</div><div class="lbl">Total</div></div>
+  <div class="card"><div class="num critical">2</div><div class="lbl">Critical</div></div>
+  <div class="card"><div class="num high">1</div><div class="lbl">High</div></div>
+  <div class="card"><div class="num medium">21</div><div class="lbl">Medium</div></div>
+  <div class="card"><div class="num low">0</div><div class="lbl">Low</div></div>
+  <div class="card"><div class="num info">0</div><div class="lbl">Info</div></div>
+</div>
+<div class="container"><table>
+<thead><tr>
+  <th>#</th><th>Severity</th><th>Category</th><th>Title</th>
+  <th>Location</th><th>Snippet</th><th>Recommendation</th>
+</tr></thead>
+<tbody><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">1</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A04 - Cryptographic Failures</td>
+  <td>Base64 encoding used on sensitive data - not encryption</td>
+  <td><code>/home/gray/projects/medref/Frontend/src/app/api/auth/[...nextauth].js:38</code></td>
+  <td><code class="snippet">secret: import.meta.env.NEXTAUTH_SECRET,</code></td>
+  <td class="rec">Base64 is encoding, not encryption. Use authenticated encryption (AES-GCM) for confidential data.</td>
+</tr><tr style="background:#fef5ec">
+  <td style="text-align:center;font-weight:bold">2</td>
+  <td><span class="badge" style="background:#e67e22">HIGH</span></td>
+  <td>A04 - Cryptographic Failures</td>
+  <td>AES used in ECB mode - not semantically secure</td>
+  <td><code>/home/gray/projects/medref/Frontend/package-lock.json:7115</code></td>
+  <td><code class="snippet">&quot;integrity&quot;: &quot;sha512-bppkmBSsHFmIMSl8BO9TbsyzsvGjVoppt8xUiGzwiu/bhDCGxnpOKCxgqj6GuyHE0mINMDecBFPlOm2hzY084w==&quot;,</code></td>
+  <td class="rec">Switch to AES-GCM or AES-CBC with a random IV and authentication tag.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">3</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/appointment.routes.js:24</code></td>
+  <td><code class="snippet">router.get(&quot;/patient&quot;, protect, getPatientAppointments)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">4</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/appointment.routes.js:25</code></td>
+  <td><code class="snippet">router.get(&quot;/doctor&quot;, protect, doctor, getDoctorAppointments)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">5</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/appointment.routes.js:26</code></td>
+  <td><code class="snippet">router.get(&quot;/all&quot;, protect, admin, getAllAppointments)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">6</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/auth.routes.js:18</code></td>
+  <td><code class="snippet">router.post(&quot;/login&quot;, loginUser)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">7</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/auth.routes.js:19</code></td>
+  <td><code class="snippet">router.post(&quot;/register&quot;, registerUser)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">8</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/auth.routes.js:20</code></td>
+  <td><code class="snippet">router.post(&quot;/verify&quot;, verifyEmail)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">9</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/auth.routes.js:21</code></td>
+  <td><code class="snippet">router.post(&quot;/resend-otp&quot;, resendOTP)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">10</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/doctor.routes.js:17</code></td>
+  <td><code class="snippet">router.get(&quot;/search&quot;, searchDoctors)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">11</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/medicalRecord.routes.js:49</code></td>
+  <td><code class="snippet">router.post(&quot;/upload&quot;, protect, upload.single(&quot;file&quot;), uploadMedicalRecord)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">12</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/medicalRecord.routes.js:50</code></td>
+  <td><code class="snippet">router.get(&quot;/patient/:patientId&quot;, protect, getPatientMedicalRecords)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">13</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/medicalRecord.routes.js:51</code></td>
+  <td><code class="snippet">router.get(&quot;/:id&quot;, protect, getMedicalRecordById)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">14</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/medicalRecord.routes.js:52</code></td>
+  <td><code class="snippet">router.get(&quot;/download/:id&quot;, protect, downloadMedicalRecord)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">15</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/medicalRecord.routes.js:53</code></td>
+  <td><code class="snippet">router.delete(&quot;/:id&quot;, protect, deleteMedicalRecord)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">16</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/referral.routes.js:18</code></td>
+  <td><code class="snippet">router.get(&quot;/patient&quot;, protect, getPatientReferrals)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">17</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/referral.routes.js:19</code></td>
+  <td><code class="snippet">router.get(&quot;/referring&quot;, protect, doctor, getReferringDoctorReferrals)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">18</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/referral.routes.js:20</code></td>
+  <td><code class="snippet">router.get(&quot;/referred&quot;, protect, doctor, getReferredDoctorReferrals)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">19</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/referral.routes.js:21</code></td>
+  <td><code class="snippet">router.get(&quot;/all&quot;, protect, admin, getAllReferrals)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">20</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Route or handler defined without visible auth guard</td>
+  <td><code>/home/gray/projects/medref/Backend/routes/hospital.routes.js:15</code></td>
+  <td><code class="snippet">router.get(&quot;/near&quot;, getNearbyHospitals)</code></td>
+  <td class="rec">Add an authentication middleware or guard to every non-public route.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">21</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A04 - Cryptographic Failures</td>
+  <td>Base64 encoding used on sensitive data - not encryption</td>
+  <td><code>/home/gray/projects/medref/Backend/middleware/auth.middleware.js:14</code></td>
+  <td><code class="snippet">const decoded = jwt.verify(token, process.env.JWT_SECRET)</code></td>
+  <td class="rec">Base64 is encoding, not encryption. Use authenticated encryption (AES-GCM) for confidential data.</td>
+</tr><tr style="background:#fefde7">
+  <td style="text-align:center;font-weight:bold">22</td>
+  <td><span class="badge" style="background:#f1c40f">MEDIUM</span></td>
+  <td>A04 - Cryptographic Failures</td>
+  <td>Base64 encoding used on sensitive data - not encryption</td>
+  <td><code>/home/gray/projects/medref/Backend/utils/generateToken.js:4</code></td>
+  <td><code class="snippet">return jwt.sign({ id }, process.env.JWT_SECRET, {</code></td>
+  <td class="rec">Base64 is encoding, not encryption. Use authenticated encryption (AES-GCM) for confidential data.</td>
+</tr><tr style="background:#fdecea">
+  <td style="text-align:center;font-weight:bold">23</td>
+  <td><span class="badge" style="background:#e74c3c">CRITICAL</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Role or privilege derived directly from user-supplied request data</td>
+  <td><code>/home/gray/projects/medref/Backend/controllers/auth.controller.js:363</code></td>
+  <td><code class="snippet">user.role = req.body.role || user.role</code></td>
+  <td class="rec">Never trust client-supplied role data; read it from the server-side session or JWT claims.</td>
+</tr><tr style="background:#fdecea">
+  <td style="text-align:center;font-weight:bold">24</td>
+  <td><span class="badge" style="background:#e74c3c">CRITICAL</span></td>
+  <td>A01 - Broken Access Control</td>
+  <td>Role or privilege derived directly from user-supplied request data</td>
+  <td><code>/home/gray/projects/medref/Backend/controllers/user.controller.js:63</code></td>
+  <td><code class="snippet">user.role = req.body.role || user.role</code></td>
+  <td class="rec">Never trust client-supplied role data; read it from the server-side session or JWT claims.</td>
+</tr></tbody>
+</table></div>
+</body>
+</html>

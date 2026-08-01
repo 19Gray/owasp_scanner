@@ -18,7 +18,7 @@
 **A fast, zero-dependency static analysis tool written in Rust**
 **that scans your codebase for OWASP Top 10 vulnerabilities**
 
-[![CI](https://github.com/19Gray/purionX/actions/workflows/ci.yml/badge.svg)](https://github.com/19Gray/purionX/actions)
+[![CI](https://github.com/19Gray/owasp-scan/actions/workflows/ci.yml/badge.svg)](https://github.com/19Gray/owasp-scan/actions)
 [![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![OWASP Top 10](https://img.shields.io/badge/OWASP-Top%2010-red.svg)](https://owasp.org/Top10/)
@@ -49,13 +49,13 @@
 
 ## Overview
 
-**purionX** is a static analysis CLI tool built in Rust that detects security vulnerabilities in source code and configuration files — before they reach production.
+**owasp-scan** is a static analysis CLI tool built in Rust that detects security vulnerabilities in source code and configuration files — before they reach production.
 
 It scans your entire codebase in seconds with no external services, no API keys, and no cloud uploads. Every analysis runs entirely on your machine.
 
-### Why purionX?
+### Why owasp-scan?
 
-Most security tools are slow, expensive, or cloud-dependent. purionX is:
+Most security tools are slow, expensive, or cloud-dependent. owasp-scan is:
 
 - **Fast** — compiled Rust with parallel file walking; scans thousands of files in under a second
 - **Offline** — zero network calls, runs in air-gapped environments
@@ -81,7 +81,7 @@ Most security tools are slow, expensive, or cloud-dependent. purionX is:
 This project is a **Cargo workspace** with three crates, each with a single responsibility:
 
 ```
-purionX/
+owasp-scan/
 ├── Cargo.toml                        ← Workspace root (shared dependencies)
 ├── Cargo.lock                        ← Lock file (commit this!)
 ├── .github/
@@ -161,18 +161,18 @@ rustc --version   # should print 1.75.0 or higher
 
 ```bash
 # Clone the repository
-git clone https://github.com/19Gray/purionX.git
-cd purionX
+git clone https://github.com/its-Gray/owasp-scan.git
+cd owasp-scan
 
 # Build the release binary
-cargo build --release -p scanner-cli
+cargo build --release
 
 # The binary is now at:
-./target/release/purionX --help
+./target/release/owasp-scan --help
 
 # Optionally install it globally
 cargo install --path crates/scanner-cli
-purionX --help
+owasp-scan --help
 ```
 
 ### Setting Up from the Zip
@@ -182,10 +182,10 @@ If you received this as a zip or are migrating from a `cargo new` single-crate p
 ```bash
 # 1. Unzip into your project root
 unzip owasp_workspace.zip
-cp -r owasp_workspace/* ./purionX/
+cp -r owasp_workspace/* ./owasp-scan/
 
 # 2. Remove the old single-crate src/ folder
-cd purionX
+cd owasp-scan
 rm -rf src/
 
 # 3. Verify the workspace compiles
@@ -195,7 +195,7 @@ cargo check --workspace
 cargo build --release
 
 # 5. Run it
-./target/release/purionX . --format console
+./target/release/owasp-scan . --format console
 ```
 
 ---
@@ -206,13 +206,13 @@ cargo build --release
 
 ```bash
 # Scan a single file
-purionX path/to/main.rs
+owasp-scan path/to/main.rs
 
 # Scan an entire project directory
-purionX ./my_project
+owasp-scan ./my_project
 
 # Scan the current directory
-purionX .
+owasp-scan .
 ```
 
 # If that fails follow this
@@ -220,25 +220,25 @@ purionX .
 ## scan diffrent projects
 
 ```bash
-./target/release/purionX /home/your_username/projectfolder/project_name --format console
+./target/release/owasp-scan /home/your_username/projectfolder/project_name --format console
 ```
 
 # severinity filter
 
 ```bash
-./target/release/purionX /home/your username/project_folder/project_name --min-severity medium
+./target/release/owasp-scan /home/your username/project_folder/project_name --min-severity medium
 ```
 
 ## Html fomart
 
 ```bash
-./target/release/purionX /home/your username/project_folder/project_name --format html --out ~/Desktop/medref-report.html
+./target/release/owasp-scan /home/your username/project_folder/project_name --format html --out ~/Desktop/medref-report.html
 ```
 
 ## JSON format
 
 ```bash
-./target/release/purionX /home/your username/projectfolder/project name --format json --out ~/Desktop/medref-report.json
+./target/release/owasp-scan /home/your username/projectfolder/project name --format json --out ~/Desktop/medref-report.json
 ```
 
 ### EXAMPLE
@@ -247,49 +247,49 @@ purionX .
 
 ## then the appropriate scan will be
 
-### ./target/release/purionX /home/teddy/projects/medref --format console
+### ./target/release/owasp-scan /home/teddy/projects/medref --format console
 
 ### Output Formats
 
 ```bash
 # Colored terminal output (default)
-purionX . --format console
+owasp-scan . --format console
 
 # JSON report saved to file
-purionX . --format json --out report.json
+owasp-scan . --format json --out report.json
 
 # SARIF 2.1.0 (for GitHub Code Scanning / Security tab)
-purionX . --format sarif --out results.sarif
+owasp-scan . --format sarif --out results.sarif
 
 # Self-contained HTML dashboard
-purionX . --format html --out report.html
+owasp-scan . --format html --out report.html
 ```
 
 ### Filtering by Severity
 
 ```bash
 # Only show HIGH and CRITICAL (recommended for CI gate)
-purionX . --min-severity high
+owasp-scan . --min-severity high
 
 # Only show CRITICAL
-purionX . --min-severity critical
+owasp-scan . --min-severity critical
 
 # Show everything including INFO hints
-purionX . --min-severity info
+owasp-scan . --min-severity info
 ```
 
 ### Scan Without Failing the Pipeline
 
 ```bash
 # Always exit 0 — useful for reporting without blocking
-purionX . --no-fail --format json --out report.json
+owasp-scan . --no-fail --format json --out report.json
 ```
 
 ### Full CLI Reference
 
 ```
 USAGE:
-    purionX [OPTIONS] <TARGET>
+    owasp-scan [OPTIONS] <TARGET>
 
 ARGUMENTS:
     <TARGET>    File or directory to scan
@@ -389,7 +389,7 @@ SARIF 2.1.0 format, compatible with GitHub Advanced Security, VS Code SARIF View
   "runs": [{
     "tool": {
       "driver": {
-        "name": "purionX",
+        "name": "owasp-scan",
         "version": "1.0.0",
         "rules": [ ... ]
       }
@@ -419,7 +419,7 @@ The HTML report is a fully self-contained single-file dashboard with:
 - No external dependencies — works fully offline, shareable as a single file
 
 ```bash
-purionX . --format html --out report.html
+owasp-scan . --format html --out report.html
 open report.html   # macOS
 xdg-open report.html   # Linux
 start report.html   # Windows
@@ -443,7 +443,7 @@ The included workflow at `.github/workflows/ci.yml` does three things automatica
 # Key security scan step (from ci.yml)
 - name: Run OWASP scan to SARIF
   run: |
-    ./target/release/purionX . \
+    ./target/release/owasp-scan . \
       --format sarif \
       --out results.sarif \
       --min-severity medium \
@@ -455,7 +455,7 @@ The included workflow at `.github/workflows/ci.yml` does three things automatica
     sarif_file: results.sarif
 
 - name: Fail build on HIGH+ findings
-  run: ./target/release/purionX . --min-severity high
+  run: ./target/release/owasp-scan . --min-severity high
 ```
 
 After the SARIF upload, findings appear under **Security → Code scanning alerts** in your repository.
@@ -463,13 +463,13 @@ After the SARIF upload, findings appear under **Security → Code scanning alert
 ### GitLab CI
 
 ```yaml
-purionX:
+owasp-scan:
   image: rust:latest
   stage: security
   script:
     - cargo build --release -p scanner-cli
-    - ./target/release/purionX . --format sarif --out gl-sast-report.sarif --no-fail
-    - ./target/release/purionX . --min-severity high
+    - ./target/release/owasp-scan . --format sarif --out gl-sast-report.sarif --no-fail
+    - ./target/release/owasp-scan . --min-severity high
   artifacts:
     reports:
       sast: gl-sast-report.sarif
@@ -486,7 +486,7 @@ Block commits that introduce HIGH or CRITICAL vulnerabilities:
 # Create the hook file
 cat > .git/hooks/pre-commit << 'EOF'
 #!/bin/sh
-purionX . --min-severity high --no-color
+owasp-scan . --min-severity high --no-color
 if [ $? -ne 0 ]; then
   echo ""
   echo "OWASP scan found HIGH or CRITICAL issues. Fix them before committing."
@@ -646,7 +646,7 @@ cargo clippy --all-targets --all-features -- -D warnings
 
 # Build and self-scan
 cargo build --release -p scanner-cli
-./target/release/purionX . --min-severity medium
+./target/release/owasp-scan . --min-severity medium
 ```
 
 ### Reporting Issues
@@ -669,10 +669,12 @@ Open a GitHub issue with the following details:
 - [A02:2026 Cryptographic Failures](https://owasp.org/Top10/A02_2026-Cryptographic_Failures/)
 - [SARIF 2.1.0 Specification](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html)
 - [GitHub Code Scanning — SARIF Upload](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/uploading-a-sarif-file-to-github)
-- [purionX Advisory Database](https://purionX.org/)
+- [owasp-scan Advisory Database](https://owasp-scan.org/)
 - [Rust Secure Coding Guidelines](https://anssi-fr.github.io/rust-guide/)
 
 ---
+
+- [Example HTML Output](medref-report.html)
 
 ## License
 

@@ -8,7 +8,7 @@ use std::process;
 /// OWASP Static Vulnerability Scanner - A01, A02, A03, A04
 #[derive(Parser, Debug)]
 #[command(
-    name = "purionX",
+    name = "owasp-scan",
     version,
     about = "Scans source code and configs for OWASP Top-10 vulnerabilities"
 )]
